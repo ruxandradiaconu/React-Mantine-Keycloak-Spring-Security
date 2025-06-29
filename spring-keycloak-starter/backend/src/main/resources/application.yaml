@@ -1,0 +1,54 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/realms/demo-realm/protocol/openid-connect/certs
+          issuer-uri: http://localhost:8080/realms/demo-realm
+      client:
+        registration:
+          keycloak:
+            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
+            client-secret: ''
+            client-id: demo-client
+            scope: openid,profile,email
+            client-name: Keycloak
+            authorization-grant-type: authorization_code
+        provider:
+          keycloak:
+            user-name-attribute: preferred_username
+            auth-server-url:  http://localhost:8080
+            realm: demo-realm
+            client-id: demo-client
+            token-uri: http://localhost:8080/realms/demo-realm/protocol/openid-connect/token
+            issuer-uri: http://localhost:8080/realms/demo-realm
+            jwk-set-uri: http://localhost:8080/realms/demo-realm/protocol/openid-connect/certs
+            user-info-uri: http://localhost:8080/realms/demo-realm/protocol/openid-connect/userinfo
+            authorization-uri: http://localhost:8080/realms/demo-realm/protocol/openid-connect/auth
+  datasource:
+    driverClassName: org.h2.Driver
+    password: password
+    username: sa
+    url: jdbc:h2:mem:testdb;INIT=RUNSCRIPT FROM 'classpath:scripts/init-data.sql'
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        format_sql: 'true'
+    show-sql: 'true'
+  h2:
+    console:
+      path: /h2-console
+      enabled: 'true'
+logging:
+  level:
+    org:
+      springframework:
+        security:
+          oauth2: DEBUG
+          nodeValue: DEBUG
+server:
+  port: '8081'
+
