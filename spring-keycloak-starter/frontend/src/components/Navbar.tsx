@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { NavLink, Stack, Text } from "@mantine/core"
-import { IconHome, IconDashboard, IconBook, IconUser, IconBug, IconUsersGroup } from "@tabler/icons-react"
+import { IconHome, IconDashboard, IconBook, IconUser, IconBug, IconUsersGroup, IconBriefcase } from "@tabler/icons-react"
 import { Link, useLocation } from "react-router-dom"
 import { useAuth } from "../contexts/AuthContext"
 
@@ -16,6 +16,7 @@ export const Navbar: React.FC = () => {
     { icon: IconDashboard, label: "Dashboard", path: "/dashboard", public: false },
     { icon: IconUser, label: "Profile", path: "/profile", public: false },
     { icon: IconBook, label: "Tutorials", path: "/tutorials", public: false },
+    { icon: IconBriefcase , label: "Classrooms", path: "/classrooms", public: true },
     { icon: IconUsersGroup, label: "Users by Role", path: "/users-by-role", public: false, adminOnly: true },
     { icon: IconBug, label: "Debug", path: "/debug", public: true },
   ]

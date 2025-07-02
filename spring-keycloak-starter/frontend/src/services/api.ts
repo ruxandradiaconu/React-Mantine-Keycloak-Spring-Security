@@ -64,6 +64,15 @@ export interface RolesSummary {
   }
 }
 
+export interface Classroom {
+  id: number
+  name: string
+  floor: number | null
+  capacity: number | null
+  type: string | null
+  has_video_projector: boolean
+}
+
 export const api = {
   // Public endpoints
   health: async (): Promise<{ status: string; message: string }> => {
@@ -117,6 +126,11 @@ export const api = {
 
   deleteTutorial: async (id: number): Promise<void> => {
     await apiClient.delete(`/tutorials/${id}`)
+  },
+
+  getClassrooms: async (): Promise<Classroom[]> => {
+    const response = await apiClient.get("/classrooms")
+    return response.data
   },
 
   // Admin endpoints
