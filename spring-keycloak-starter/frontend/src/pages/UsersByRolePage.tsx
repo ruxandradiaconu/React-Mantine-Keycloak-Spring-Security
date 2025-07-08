@@ -6,7 +6,8 @@ import { Container, Title, Card, Text, Button, Stack, Group, Badge, Table, Selec
 import { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { useAuth } from "../contexts/AuthContext"
-import { api } from "../services/api"
+import { apiGetRolesSummary } from "../services/rolesSummaryApi"
+import {apiUsersByRoleResponse} from "../services/usersByRoleResponseApi"
 
 export const UsersByRolePage: React.FC = () => {
     const { isAdmin } = useAuth()
@@ -14,7 +15,7 @@ export const UsersByRolePage: React.FC = () => {
 
     const { data: rolesSummary, isLoading: loadingRoles } = useQuery({
         queryKey: ["rolesSummary"],
-        queryFn: api.getRolesSummary,
+        queryFn: apiGetRolesSummary.getRolesSummary,
         enabled: isAdmin,
     })
 
@@ -24,7 +25,7 @@ export const UsersByRolePage: React.FC = () => {
         refetch: refetchUsers,
     } = useQuery({
         queryKey: ["usersByRole", selectedRole],
-        queryFn: () => api.getUsersByRole(selectedRole),
+        queryFn: () => apiUsersByRoleResponse.getUsersByRole(selectedRole),
         enabled: isAdmin && !!selectedRole,
     })
 

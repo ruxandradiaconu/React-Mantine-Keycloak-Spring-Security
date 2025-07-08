@@ -2,6 +2,7 @@ import React from "react"
 import ReactDOM from "react-dom/client"
 import { MantineProvider } from "@mantine/core"
 import { Notifications } from "@mantine/notifications"
+import { ModalsProvider } from "@mantine/modals"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { BrowserRouter } from "react-router-dom"
@@ -24,7 +25,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <MantineProvider>
         <Notifications />
         <BrowserRouter>
+        <ModalsProvider>
           <App />
+        </ModalsProvider>
         </BrowserRouter>
         <ReactQueryDevtools initialIsOpen={false} />
       </MantineProvider>

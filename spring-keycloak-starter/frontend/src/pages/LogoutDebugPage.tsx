@@ -5,7 +5,7 @@ import type React from "react"
 import { Container, Title, Card, Text, Button, Stack, Alert, Code } from "@mantine/core"
 import { useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
-import { api } from "../services/api"
+import { apiUserInfo } from "../services/userInfoApi"
 
 export const LogoutDebugPage: React.FC = () => {
     const { user, isAuthenticated, logout } = useAuth()
@@ -15,7 +15,7 @@ export const LogoutDebugPage: React.FC = () => {
     const testLogoutAPI = async () => {
         try {
             setError(null)
-            const response = await api.logout()
+            const response = await apiUserInfo.logout()
             setLogoutResponse(response)
             console.log("Logout API response:", response)
         } catch (err: any) {
@@ -116,7 +116,7 @@ export const LogoutDebugPage: React.FC = () => {
                     </Title>
                     <Stack gap="xs">
                         <Text size="sm">1. Click logout button in header</Text>
-                        <Text size="sm">2. Calls POST /api/auth/logout</Text>
+                        <Text size="sm">2. Calls POST /apiUserInfo/auth/logout</Text>
                         <Text size="sm">3. Backend clears session and cookies</Text>
                         <Text size="sm">4. Frontend clears cache and state</Text>
                         <Text size="sm">5. Redirects to home page</Text>

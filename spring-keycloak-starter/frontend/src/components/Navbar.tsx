@@ -16,7 +16,8 @@ export const Navbar: React.FC = () => {
     { icon: IconDashboard, label: "Dashboard", path: "/dashboard", public: false },
     { icon: IconUser, label: "Profile", path: "/profile", public: false },
     { icon: IconBook, label: "Tutorials", path: "/tutorials", public: false },
-    { icon: IconBriefcase , label: "Classrooms", path: "/classrooms", public: true },
+    { icon: IconBriefcase , label: "Classrooms", path: "/classrooms", public: false },
+    { icon: IconBriefcase , label: "Courses", path: "/courses", public: false },
     { icon: IconUsersGroup, label: "Users by Role", path: "/users-by-role", public: false, adminOnly: true },
     { icon: IconBug, label: "Debug", path: "/debug", public: true },
   ]

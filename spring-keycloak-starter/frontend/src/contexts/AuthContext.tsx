@@ -3,7 +3,7 @@
 import type React from "react"
 import { createContext, useContext, useEffect, useState } from "react"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { api } from "../services/api"
+import { apiUserInfo } from "../services/userInfoApi"
 
 interface User {
   username: string
@@ -45,7 +45,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     error: queryError,
   } = useQuery({
     queryKey: ["currentUser"],
-    queryFn: api.getCurrentUser,
+    queryFn: apiUserInfo.getCurrentUser,
     retry: false,
     staleTime: 1000 * 60 * 5,
   })
@@ -66,7 +66,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const logout = async () => {
     try {
-      await api.logout()
+      await apiUserInfo.logout()
       queryClient.clear()
       setIsAuthenticated(false)
       setError(null)

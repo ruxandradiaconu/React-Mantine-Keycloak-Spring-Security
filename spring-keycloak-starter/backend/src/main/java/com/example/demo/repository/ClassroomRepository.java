@@ -12,4 +12,5 @@ public interface ClassroomRepository extends JpaRepository<ClassroomEntity, Inte
 //	Optional<TutorialEntity> findByTutorialValue(String tutorialValue);
 
 //	boolean existsByClassroomValue(String classroomValue);
+
 }

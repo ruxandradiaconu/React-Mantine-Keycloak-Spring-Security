@@ -22,7 +22,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { notifications } from "@mantine/notifications"
 import { IconEdit, IconTrash, IconSearch } from "@tabler/icons-react"
 import { useAuth } from "../contexts/AuthContext"
-import { api, type Tutorial } from "../services/api"
+import { apiTutorials, type Tutorial } from "../services/tutorialsApi"
 
 export const TutorialsPage: React.FC = () => {
     const { isAuthenticated, isAdmin } = useAuth()
@@ -42,17 +42,17 @@ export const TutorialsPage: React.FC = () => {
         error,
     } = useQuery({
         queryKey: ["tutorials"],
-        queryFn: api.getTutorials,
+        queryFn: apiTutorials.getTutorials,
     })
 
     const { data: searchResults, isLoading: searchLoading } = useQuery({
         queryKey: ["searchTutorials", searchTerm],
-        queryFn: () => api.searchTutorials(searchTerm),
+        queryFn: () => apiTutorials.searchTutorials(searchTerm),
         enabled: searchTerm.length > 0,
     })
 
     const createTutorialMutation = useMutation({
-        mutationFn: api.createTutorial,
+        mutationFn: apiTutorials.createTutorial,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["tutorials"] })
             notifications.show({
@@ -75,7 +75,7 @@ export const TutorialsPage: React.FC = () => {
     })
 
     const updateTutorialMutation = useMutation({
-        mutationFn: ({ id, tutorial }: { id: number; tutorial: Omit<Tutorial, "id"> }) => api.updateTutorial(id, tutorial),
+        mutationFn: ({ id, tutorial }: { id: number; tutorial: Omit<Tutorial, "id"> }) => apiTutorials.updateTutorial(id, tutorial),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["tutorials"] })
             notifications.show({
@@ -96,7 +96,7 @@ export const TutorialsPage: React.FC = () => {
     })
 
     const deleteTutorialMutation = useMutation({
-        mutationFn: api.deleteTutorial,
+        mutationFn: apiTutorials.deleteTutorial,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["tutorials"] })
             notifications.show({

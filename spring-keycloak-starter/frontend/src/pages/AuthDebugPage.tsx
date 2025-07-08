@@ -5,19 +5,19 @@ import type React from "react"
 import { Container, Title, Card, Text, Stack, Alert, Badge, Group, Code } from "@mantine/core"
 import { useQuery } from "@tanstack/react-query"
 import { useAuth } from "../contexts/AuthContext"
-import { api } from "../services/api"
+import { apiStats } from "../services/statsApi"
 
 export const AuthDebugPage: React.FC = () => {
     const { user, isAuthenticated, isLoading, error, isAdmin } = useAuth()
 
     const { data: health } = useQuery({
         queryKey: ["health"],
-        queryFn: api.health,
+        queryFn: apiStats.health,
     })
 
     const { data: stats } = useQuery({
         queryKey: ["stats"],
-        queryFn: api.getStats,
+        queryFn: apiStats.getStats,
         enabled: isAuthenticated,
     })
 

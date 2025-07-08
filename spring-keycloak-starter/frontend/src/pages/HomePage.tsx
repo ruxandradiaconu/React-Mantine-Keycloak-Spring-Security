@@ -6,14 +6,15 @@ import { Container, Title, Text, Button, Card, SimpleGrid, Badge, Group } from "
 import { IconDatabase, IconShield, IconCode, IconBrandReact } from "@tabler/icons-react"
 import { useAuth } from "../contexts/AuthContext"
 import { useQuery } from "@tanstack/react-query"
-import { api } from "../services/api"
+import { apiStats } from "../services/statsApi"
+
 
 export const HomePage: React.FC = () => {
   const { isAuthenticated, login } = useAuth()
 
   const { data: health } = useQuery({
     queryKey: ["health"],
-    queryFn: api.health,
+    queryFn: apiStats.health,
   })
 
   const features = [

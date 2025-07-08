@@ -11,6 +11,7 @@ import { UsersByRolePage } from "./pages/UsersByRolePage"
 import { AuthProvider } from "./contexts/AuthContext"
 import { TutorialsPage } from "./pages/TutoralPage"
 import { ClassroomsPage} from "./pages/ClassroomsPage"
+import { CoursesPage} from "./pages/CoursesPage"
 
 function App() {
   const [opened, { toggle }] = useDisclosure()
@@ -39,7 +40,8 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/tutorials" element={<TutorialsPage />} />
-                <Route path="/classrooms" element={<ClassroomsPage/>} />
+              <Route path="/classrooms" element={<ClassroomsPage/>} />
+              <Route path="/courses" element={<CoursesPage/>} />
             <Route path="/users-by-role" element={<UsersByRolePage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/debug" element={<AuthDebugPage />} />

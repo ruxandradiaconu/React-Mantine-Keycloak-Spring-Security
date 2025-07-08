@@ -6,7 +6,7 @@ import { Container, Title, SimpleGrid, Card, Text, Loader, Alert } from "@mantin
 import { IconBook, IconClock, IconShield } from "@tabler/icons-react"
 import { useQuery } from "@tanstack/react-query"
 import { useAuth } from "../contexts/AuthContext"
-import { api } from "../services/api"
+import { apiStats } from "../services/statsApi"
 
 export const DashboardPage: React.FC = () => {
   const { user, isAuthenticated } = useAuth()
@@ -17,7 +17,7 @@ export const DashboardPage: React.FC = () => {
     error,
   } = useQuery({
     queryKey: ["stats"],
-    queryFn: api.getStats,
+    queryFn: apiStats.getStats,
     enabled: isAuthenticated,
   })
 

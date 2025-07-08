@@ -26,22 +26,22 @@ spring:
             user-info-uri: http://localhost:8080/realms/demo-realm/protocol/openid-connect/userinfo
             authorization-uri: http://localhost:8080/realms/demo-realm/protocol/openid-connect/auth
   datasource:
-    driverClassName: org.h2.Driver
-    password: password
-    username: sa
-    url: jdbc:h2:mem:testdb;INIT=RUNSCRIPT FROM 'classpath:scripts/init-data.sql'
+    password: student
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/practica
   jpa:
     hibernate:
-      ddl-auto: none
-    database-platform: org.hibernate.dialect.H2Dialect
+      ddl-auto: update
+#    database-platform: org.hibernate.dialect.H2Dialect
     properties:
       hibernate:
         format_sql: 'true'
+        dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: 'true'
-  h2:
-    console:
-      path: /h2-console
-      enabled: 'true'
+#  h2:
+#    console:
+#      path: /h2-console
+#      enabled: 'true'
 logging:
   level:
     org:
