@@ -6,15 +6,44 @@ import { apiUsersByRoleResponse } from "../services/usersByRoleResponseApi"
 import { apiCourses } from "../services/coursesApi"
 import { modals } from "@mantine/modals"
 import { notifications } from "@mantine/notifications"
-// import { Course } from "../types/coursesType"
+import { Course } from "../types/coursesType"
+import { UsersByRoleResponse } from "../types/usersByRoleResponseType"
+import { useState } from "react"
+
 
 
 export const CoursesPage = () => {
-    const queryClient = useQueryClient();
+
+  const queryClient = useQueryClient();
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["courses"],
     queryFn: apiCourses.getCourses,
   })
+
+  // const {data: professors} = useQuery({
+  //   queryKey: ["course-professors"],
+  //   queryFn: apiCourses.getProfessors,
+  // })
+  const [selectedRole, setSelectedRole] = useState<string>("PROFESOR")
+  const {
+          data: professorUsers,
+      } = useQuery({
+          queryKey: ["professorUsers", selectedRole],
+          queryFn: () => apiUsersByRoleResponse.getUsersByRole(selectedRole),
+      })
+
+  const professorMap = new Map<string, string>(
+  (professorUsers?.users || []).map((p) => [p.username, `${p.firstName} ${p.lastName}`])
+)
+
+  
+
+  // const { data: professors, isLoading: loadingProfessors } = useQuery<UsersByRoleResponse[]>({
+  //   queryKey: ["professors"],
+  //   queryFn:  apiCourses.getProfessors(),
+  // })
+
 
   const createCourseMutation = useMutation({
           mutationFn: apiCourses.createCourse,
@@ -40,6 +69,13 @@ export const CoursesPage = () => {
           course_name: "",
           professor_username: "",
           }
+          
+
+          const professorOptions =
+            professorUsers?.users?.map((prof) => ({
+              value: prof.username,
+              label: `${prof.firstName} ${prof.lastName} (${prof.username})`,
+            })) || []
   
           modals.openConfirmModal({
           title: "Add New Classroom",
@@ -54,7 +90,7 @@ export const CoursesPage = () => {
               <Select
                 label="Professor Name"
                 placeholder="Choose a course professor"
-                data={['a', 'b', 'c', 'd']}
+                data={professorOptions}
                 required
                 onChange={(value) => newCourse.professor_username = value!} 
                 />
@@ -97,6 +133,7 @@ export const CoursesPage = () => {
               <Table.Thead>
                 <Table.Tr>
                   <Table.Th>Course Name</Table.Th>
+                  <Table.Th>Professor Name</Table.Th>
                   <Table.Th>Professor Username</Table.Th>
                 </Table.Tr>
               </Table.Thead>
@@ -104,6 +141,7 @@ export const CoursesPage = () => {
                 {data?.map((course) => (
                   <Table.Tr key={course.id}>
                     <Table.Td>{course.course_name}</Table.Td>
+                    <Table.Td>{professorMap.get(course.professor_username) || "-"}</Table.Td>
                     <Table.Td>{course.professor_username || "-"}</Table.Td>
                   </Table.Tr>
                 ))}

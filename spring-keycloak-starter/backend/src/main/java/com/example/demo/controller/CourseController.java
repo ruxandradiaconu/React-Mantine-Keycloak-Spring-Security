@@ -39,8 +39,14 @@ public class CourseController {
 		courseService.deleteCourse(id);
 	}
 
-//	private static final Logger logger = LoggerFactory.getLogger(CourseController.class);
+	@GetMapping("/professors")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<List<Map<String, Object>>> getProfessors() {
+		return ResponseEntity.ok(courseService.getProfessors());
+	}
 
+
+//	private static final Logger logger = LoggerFactory.getLogger(CourseController.class);
 
 //	@GetMapping("/professors")
 //	public ResponseEntity<?> getProfessorsTest() {

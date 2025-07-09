@@ -1,4 +1,6 @@
 import { Course } from "../types/coursesType"
+import { UserInfo } from "../types/userInfoType"
+import { UsersByRoleResponse } from "../types/usersByRoleResponseType"
 import { apiClient } from "./apiClient"
 
 export const apiCourses = {
@@ -15,5 +17,10 @@ export const apiCourses = {
     deleteCourse: async (id: number) : Promise<void> => {
         await apiClient.delete(`/courses/${id}`)
     },
+
+    getProfessors: async (): Promise<UsersByRoleResponse> => {
+            const response = await apiClient.get(`/courses/professors`)
+            return response.data
+          },
     
 }
